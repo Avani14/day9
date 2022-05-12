@@ -1,11 +1,26 @@
 echo "Welcome employee !!"
-partTime=4
-fullTime=8
-partTimeWagePerHour=10
-fullTimeWagePerHour=20
-random=$((RANDOM%3))
-case $random in
-	1) echo "Monthly wage of the part-time employee is " $((20*10*4));;
-	2) echo "Monthly wage of the full-time employee is " $((20*20*8));;
-	*) echo "No daily wage";;
-esac
+perHourSalary=20;
+workingHour=0;
+totalSalary=0;
+
+for ((day=1; day<=20 ;day++))
+do
+	isPresent=$((RANDOM%3));
+	case $isPresent in
+		0)
+		workingHour=0;
+		;;
+
+		1)
+		workingHour=8;
+		;;
+
+		2)
+		workingHour=4;
+		;;
+	esac
+	salary=$(($perHourSalary * $workingHour));
+	totalSalary=$(($totalSalary + $salary));
+done
+
+echo "Employee has earned $totalSalary $ in a month";
