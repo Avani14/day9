@@ -1,15 +1,36 @@
 echo "Welcome employee !!"
-partTime=4
-fullTime=8
-partTimeWagePerHour=10
-fullTimeWagePerHour=20
-maxWorkingDays=20
+perHourSalary=20;
+workingHour=0;
+totalSalary=0;
 maxWorkingHours=100
-random=$((RANDOM%3))
-while
-case $random in
-	1) echo "Monthly wage of the part-time employee is " $((20*10*4));;
-	2) echo "Monthly wage of the full-time employee is " $((20*20*8));;
-	*) echo "No daily wage";;
+maxWorkingDays=20
+totaldays=0
+totalhours=0
+isFullTime=2
+isPartTime=1
+function empworkingHours(){
+	case $1 in
+		$isFullTime)
+				emphrs=8
+				;;
+		$isPartTime)
+				emphrs=4
+				;;
+		*)
+				emphrs=0
+				;;
+	esac
+	echo $emphrs
 
-esac
+}
+while [[ $totaldays -lt $maxWorkingHours && $totalhours -lt $maxWorkingHours ]]
+do
+	workingHrs="$(empworkingHours $((RANDOM%3)))"
+	totalhours=$(($workingHrs+$totalhours))
+	totaldays=$(($totaldays+1))
+done
+
+salaryPerMonth=$(($perHourSalary*$totalhours))
+
+
+echo "Employee has earned $salaryPerMonth $ in a month";
